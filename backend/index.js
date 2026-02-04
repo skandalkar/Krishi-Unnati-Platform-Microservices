@@ -15,7 +15,6 @@ connectDB();
 finalizedOrder();
 
 app.get('/', (req, res) => {
-    console.log(`Received request: GET -> http://localhost:${PORT}/`);
     res.send('Welcome to the Trade Registry Blockchain Backend Service');
 })
 

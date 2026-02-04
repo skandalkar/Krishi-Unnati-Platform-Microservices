@@ -7,13 +7,9 @@ node_modules/
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-package-lock.json
 .pnpm-debug.log*
 
-# ---- Python ----
-__pycache__/
-*.py[cod]
-*.egg-info/
+# ---- Environment Variables ----
 .env
 venv/
 .env.local
@@ -32,8 +28,6 @@ typechain/
 *.db
 *.log
 *.pid
-*.lock
-*.json
 
 # ---- Docker ----
 *.pid
