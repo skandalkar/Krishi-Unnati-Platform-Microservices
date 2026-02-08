@@ -8,6 +8,7 @@ const paymentRoutes = require('./routes/paymentRoutes');
 
 const app = express();
 app.use(express.json());
+
 const PORT = process.env.PORT || 5000;
 
 connectDB();
@@ -15,7 +16,7 @@ connectDB();
 finalizedOrder();
 
 app.get('/', (req, res) => {
-    res.send('Welcome to the Trade Registry Blockchain Backend Service');
+    res.send('Welcome to the Blockchain Backend Service');
 })
 
 // OrderTrade Creation, Retrieval and VerificationRoutes

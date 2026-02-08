@@ -2,7 +2,9 @@ const { ethers } = require('ethers');
 require('dotenv').config();
 
 const Order = require('../models/Order');
+const BlockTrade = require('../models/BlockTrade');
 const TradeABI = require('../../artifacts/contracts/TradeRegistry.sol/TradeRegistry.json').abi;
+const { generateDataFingerprint } = require('../utilities/fingerprintGenerator');
 
 const provider = new ethers.JsonRpcProvider(process.env.RPC_PROVIDER_URL);
 const contractAddress = process.env.CONTRACT_ADDRESS;
@@ -19,10 +21,11 @@ function finalizedOrder() {
                 const buyerAddress = typeof buyer === 'object' ? buyer.hash : buyer;
                 const orderIdString = typeof orderId === 'object' ? orderId.hash : orderId;
 
-                const priceInEther = parseFloat(ethers.formatEther(price));
+                const priceInEther = ethers.formatEther(price); 
                 const quantity = Number(qty);
-                const totalCostInEther = priceInEther * quantity;
+                const totalCostInEther = parseFloat(priceInEther) * quantity;
                 
+                // Save to Order collection DB 
                 await Order.updateOne(
                     { blockchainId },
                     {
@@ -42,7 +45,34 @@ function finalizedOrder() {
                     { upsert: true }
                 );
 
-                console.log(`Order ${blockchainId} synced successfully`);
+                // Fetch block details to get blockHash
+                const block = await provider.getBlock(event.log.blockNumber);
+
+                // Generate data fingerprint for tampering detection
+                const dataFingerprint = generateDataFingerprint(priceInEther, quantity, farmerAddress, buyerAddress);
+                
+                // Save to BlockTrade collection with blockchain metadata
+                await BlockTrade.updateOne(
+                    { tradeId: orderIdString },
+                    {
+                        $setOnInsert: {
+                            farmerId: farmerAddress,
+                            buyerId: buyerAddress,
+                            cropName: crop,
+                            quantity,
+                            price: priceInEther,
+                            tradeId: orderIdString,
+                            blockNumber: event.log.blockNumber,
+                            blockHash: block.hash,
+                            transactionHash: event.log.transactionHash,
+                            dataFingerprint,
+                            orderStatus: 'PENDING'
+                        },
+                    },
+                    { upsert: true }
+                );
+
+                console.log(`Order ${blockchainId} synced to Order and Block collections`);
             }
             catch (err) {
                 console.error("Sync Error:", err);
