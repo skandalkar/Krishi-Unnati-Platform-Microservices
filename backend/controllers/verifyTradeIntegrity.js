@@ -7,7 +7,8 @@ const verifyIntegrrityTrade = async (req, res) => {
         return res.status(403).json({
             error: "DATA INTEGRITY BREACHED",
             message: "The data in the database does not match the blockchain record.",
-            verification: "FAILED"
+            verification: "FAILED",
+            result: result
         });
     } else {
         return res.status(200).json({

@@ -31,6 +31,7 @@ contract TradeRegistry {
     );
 
     function createOrder(
+        address _farmer,
         address _buyer,
         string memory _orderId,
         string memory _crop,
@@ -42,7 +43,7 @@ contract TradeRegistry {
 
         orders[orderCount] = Order(
             orderCount,
-            msg.sender,
+            _farmer,
             _buyer,
             _orderId,
             _crop,
@@ -54,7 +55,7 @@ contract TradeRegistry {
 
         emit OrderFinalized(
             orderCount,
-            msg.sender,
+            _farmer,
             _buyer,
             _orderId,
             _crop,
