@@ -15,10 +15,10 @@ app.get('/', (req, res) => {
 })
 
 // Routes for Walet Management
-app.use("/api/pay-system-kup/wallet",require("./routes/Wallet.route"));
-app.use("/api/pay-system-kup/escrow",require("./routes/Escrow.route"));
-app.use("/api/pay-system-kup/payout",require("./routes/Payout.route"));
-app.use("/api/pay-system-kup/withdraw",require("./routes/Withdraw.route"));
+app.use("/api/v1/pay-system-kup/wallet",require("./routes/Wallet.route"));
+app.use("/api/v1/pay-system-kup/escrow",require("./routes/Escrow.route"));
+app.use("/api/v1/pay-system-kup/payout",require("./routes/Payout.route"));
+app.use("/api/v1/pay-system-kup/withdraw",require("./routes/Withdraw.route"));
 
 app.listen(PORT, () => {
     console.log("KUP Wallet server running");

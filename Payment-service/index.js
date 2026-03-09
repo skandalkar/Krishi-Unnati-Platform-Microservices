@@ -11,7 +11,7 @@ dotenv.config();
 const port = process.env.PORT || 5003;
 
 //payment routes
-app.use("/api", router)
+app.use("/api/v1/kup-payment-service/", router)
 
 app.get("/api", (req, res) => {
     res.send("This is Payment Gateway Microservice.")

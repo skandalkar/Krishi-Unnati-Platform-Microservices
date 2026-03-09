@@ -1,6 +1,6 @@
 /** Razorpay Integration Demonstration */
 
-const Base_URL = "http://localhost:5003/api";
+const Base_URL = "http://localhost:5003/api/v1/kup-payment-service";
 
 document.addEventListener('DOMContentLoaded', () => {
     // All 'Pay Now' buttons
@@ -60,7 +60,7 @@ async function handlePaymentInitiation(event) {
 /** Step 2: Open Razorpay payment modal dialog */
 function openRazorpayMoal(orderData, productName, button) {
     const options = {
-        key: "My_Test_Key",
+        key: "rzp_test_SMfzQFiH0DSOSD",
         amount: Math.round(orderData.amount * 100), 
         currency: orderData.currency,
         name: 'Payment Gateway Demo',
