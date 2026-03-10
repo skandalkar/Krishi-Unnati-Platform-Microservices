@@ -38,7 +38,7 @@ const fetchFromMainDB = async (orderId) => {
 const verifyTradeIntegrity = async (tradeId) => {
     try {
 
-        console.log(`🔍 Verifying integrity for Trade ID: ${tradeId}`);
+        console.log(`Verifying integrity for Trade ID: ${tradeId}`);
 
         // Fetch the main trade record to get the blockchain transaction hash
         const mainDBRecord = await fetchFromMainDB(tradeId);
