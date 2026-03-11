@@ -60,7 +60,7 @@ async function handlePaymentInitiation(event) {
 /** Step 2: Open Razorpay payment modal dialog */
 function openRazorpayMoal(orderData, productName, button) {
     const options = {
-        key: "rzp_test_SMfzQFiH0DSOSD",
+        key: "My_Test_Key", // My_Test_Key must be replaced with actual Razorpay API test key for testing demo
         amount: Math.round(orderData.amount * 100), 
         currency: orderData.currency,
         name: 'Payment Gateway Demo',
