@@ -1,5 +1,7 @@
 const payoutService = require("../services/Paymout.service");
 
+//  Post-Settlement functionality
+
 const createPayout = async (req, res) => {
 
     try {

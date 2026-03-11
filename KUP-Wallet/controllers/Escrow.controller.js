@@ -1,12 +1,12 @@
 const escrowService = require("../services/Escrow.service");
 
-
+// Funds locking functionality to the EscrowWaller after Order-Trade Confirmed and Placed
 const lockFunds = async (req, res) => {
     try {
-        const { buyerId, sellerId, amount, orderId } = req.body;
+        const { buyerId, farmerId, amount, orderId } = req.body;
         const escrow = await escrowService.lockFunds(
             buyerId,
-            sellerId,
+            farmerId,
             amount,
             orderId
         );
@@ -22,11 +22,16 @@ const lockFunds = async (req, res) => {
     }
 };
 
+// Funds releasing functionality to the EscrowWallet to transfer locked funds with respected orderId and associated farmerId automatically as OrderStatus updates to "DELIVERED" by Buyer. This is an automation event running of smart contract.
 const releaseFunds = async (req, res) => {
-
     try {
-        const { orderId } = req.body;
-        const result = await escrowService.releaseFunds(orderId);
+        const { orderId, buyerId, farmerId, amount } = req.body;
+        const result = await escrowService.releaseFunds(
+            orderId,
+            buyerId,
+            farmerId,
+            amount
+        );
         res.json({
             success: true,
             message: "Escrow released",

@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
 
+// Payout-Schema Post-Settlement functionality
+
 const payoutSchema = new mongoose.Schema({
     userId: String,
     amount: Number,

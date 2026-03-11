@@ -1,5 +1,7 @@
 const Payout = require("../models/Payout.model");
 
+//  Post-Settlement functionality
+
 exports.createPayout = async (userId, amount) => {
     const payout = new Payout({
         userId,
